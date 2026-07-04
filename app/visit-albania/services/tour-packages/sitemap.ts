@@ -17,9 +17,10 @@ export async function generateSitemaps() {
 
 // 2️⃣ Fetch tours for each specific sitemap chunk
 export default async function sitemap({ id }: { id: number }): Promise<MetadataRoute.Sitemap> {
+	const resolvedId = await Promise.resolve(id);
 	// Fetch paginated tours
 	const tours = await fetchAllPackages({
-		page: id + 1, // API pagination starts from 1
+		page: resolvedId + 1, // API pagination starts from 1
 		pageSize: LIMIT,
 	});
 

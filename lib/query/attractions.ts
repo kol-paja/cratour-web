@@ -22,7 +22,7 @@ export const fetchAllAttractions = async ({ page = 1, pageSize = 25, sort = 'des
 	return axios
 		.get(`${apiUrl}/city-attractions?${query}`)
 		.then((res) => res.data)
-		.catch((e) => console.log({ e }));
+		.catch((e) => console.log('fetchAllAttractions', { e }));
 };
 
 // TODO sort by a score
@@ -48,7 +48,7 @@ export const fetchSomeAttractions = async ({ page = 1, pageSize = 25, sort = 'de
 	return axios
 		.get(`${apiUrl}/city-attractions?${query}`)
 		.then((res) => res.data)
-		.catch((e) => console.log({ e }));
+		.catch((e) => console.log('fetchSomeAttractions', { e }));
 };
 export const fetchAttraction = async (slug: string) => {
 	const query = QueryString.stringify(

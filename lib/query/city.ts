@@ -31,7 +31,12 @@ export const fetchAllCities = async ({ page = 1, pageSize = 25, sort = 'asc' }: 
 	return axios
 		.get(`${apiUrl}/cra-tours?${query}`)
 		.then((res) => res.data)
-		.catch((e) => console.log('🚀 ~ fetch cities ~ e:', e));
+		.catch((e) => {
+			console.error('Status:', e.response?.status);
+			console.error('Response:', e.response?.data);
+			console.error('URL:', e.config?.url);
+			throw e;
+		});
 };
 
 export const fetchCity = async (id: string) => {

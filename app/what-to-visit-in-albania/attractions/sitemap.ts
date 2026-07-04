@@ -16,20 +16,19 @@ export async function generateSitemaps() {
 }
 
 // 2️⃣ Fetch tours for each specific sitemap chunk
-export default async function sitemap({ id }: { id: number }): Promise<MetadataRoute.Sitemap> {
-	// Fetch paginated tours
+export default async function sitemap({ id }: { id: number | Promise<number> }): Promise<MetadataRoute.Sitemap> {
+	const resolvedId = await Promise.resolve(id); // works whether id is a number or a Promise<number>
+
 	const attractions = await fetchAllAttractions({
-		page: id + 1, // API pagination starts from 1
+		page: resolvedId + 1,
 		pageSize: LIMIT,
 	});
 
-	// Ensure attractions.data exists
-	if (!attractions.data || !Array.isArray(attractions.data)) {
-		console.error('🚀 ~ Invalid response from fetchAllPackages:', attractions);
+	if (!attractions?.data || !Array.isArray(attractions.data)) {
+		console.error('🚀 ~ Invalid response from fetchAllAttractions:', attractions);
 		return [];
 	}
 
-	// Map attractions to sitemap format
 	return attractions.data.map((attraction: any) => ({
 		url: `${liveUrl}/what-to-visit-in-albania/attractions/${attraction.slug}`,
 		lastModified: attraction.updatedAt,
