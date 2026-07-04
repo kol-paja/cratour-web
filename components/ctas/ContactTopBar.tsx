@@ -1,8 +1,9 @@
-'use client'
+'use client';
 
-import { contactsList } from '@/constants/contacts'
-import Image from 'next/image'
-import Link from 'next/link'
+import { contactsList } from '@/constants/contacts';
+import { gaEvent } from '@/lib/gtag';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const ContactTopBar = () => {
 	return (
@@ -24,6 +25,13 @@ const ContactTopBar = () => {
 						title={contact.title}
 						target={contact.href.startsWith('http') ? '_blank' : '_self'}
 						className='flex items-center gap-2 px-2 py-1 rounded-full hover:bg-white/10 transition duration-200 hover:scale-105'
+						onClick={() =>
+							gaEvent({
+								action: 'contact_click',
+								category: contact.type, // 'phone' | 'whatsapp' | 'email'
+								label: `${contact.type}_from_top_navbar`, // e.g. "whatsapp_from_footer"
+							})
+						}
 					>
 						<Image src={contact.icon} alt={contact.title} width={20} height={20} className='drop-shadow-md h-6 w-6 md:h-5 md:w-5' />
 						<span className='hidden sm:inline text-sm'>{contact.label}</span>
@@ -31,7 +39,7 @@ const ContactTopBar = () => {
 				))}
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default ContactTopBar
+export default ContactTopBar;

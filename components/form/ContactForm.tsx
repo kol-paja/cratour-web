@@ -1,25 +1,25 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react'
-import { Form, Input, InputNumber, Select, Button } from 'antd'
-import { Bounce, toast, ToastContainer } from 'react-toastify'
-import { useGetAllCities } from '@/hooks/useCities'
-import { useGetAllAttractions } from '@/hooks/useAttractions'
-import PlaceOptions from './PlaceOptions'
-import MultiplePlaceSelect from './PlaceOptions'
-import Link from 'next/link'
-import { logos } from '@/constants'
-import Image from 'next/image'
-import { contacts, contactsList } from '@/constants/contacts'
+import React, { useState } from 'react';
+import { Form, Input, InputNumber, Select, Button } from 'antd';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { useGetAllCities } from '@/hooks/useCities';
+import { useGetAllAttractions } from '@/hooks/useAttractions';
+import MultiplePlaceSelect from './PlaceOptions';
+import Link from 'next/link';
+import { logos } from '@/constants';
+import Image from 'next/image';
+import { contactsList } from '@/constants/contacts';
+import { gaEvent } from '@/lib/gtag';
 
-const { Option } = Select
+const { Option } = Select;
 type Props = {
-	place?: 'home' | 'page'
-}
+	place?: 'home' | 'page';
+};
 
 const ContactForm = ({ place = 'home' }: Props) => {
-	const [form] = Form.useForm()
-	const [isLoading, setIsLoading] = useState(false)
+	const [form] = Form.useForm();
+	const [isLoading, setIsLoading] = useState(false);
 
 	const {
 		cities,
@@ -29,7 +29,7 @@ const ContactForm = ({ place = 'home' }: Props) => {
 		page: 1,
 		pageSize: 1000,
 		sort: 'asc',
-	})
+	});
 	const {
 		attractions,
 		isLoading: isLoadingAttractions,
@@ -38,10 +38,10 @@ const ContactForm = ({ place = 'home' }: Props) => {
 		page: 1,
 		pageSize: 1000,
 		sort: 'asc',
-	})
+	});
 
 	const onFinish = (data: any) => {
-		const placesList = data.places.map((place: string) => `<li>${place}</li>`).join('')
+		const placesList = data.places.map((place: string) => `<li>${place}</li>`).join('');
 		const notes = `<div>
             <div>
               <p><strong>**Subject:</strong> ${data.subject}</p>
@@ -54,13 +54,13 @@ const ContactForm = ({ place = 'home' }: Props) => {
 
             </div>
             <h5>Please provide me with the pricing details. Looking forward to your response. Thank you!</h5>
-            </div>`
+            </div>`;
 		const bodyData = {
 			subject: data.fullName + ' requested some info about: ' + data.service,
 			serviceType: data.service,
 			email: data.email,
 			notes: notes,
-		}
+		};
 		fetch('/api/emails', {
 			method: 'POST',
 			headers: {
@@ -70,20 +70,20 @@ const ContactForm = ({ place = 'home' }: Props) => {
 			body: JSON.stringify(bodyData),
 		})
 			.then((res) => {
-				return res.json()
+				return res.json();
 			})
 			.then(() => {
-				toast.success('Message was sent, check your email inbox for any the response of your request')
+				toast.success('Message was sent, check your email inbox for any the response of your request');
 			})
 			.catch((error) => {
-				console.log('🚀 ~ handleSubmit ~ error:', error)
-				toast.error('Sorry! Message was not sent!')
+				console.log('🚀 ~ handleSubmit ~ error:', error);
+				toast.error('Sorry! Message was not sent!');
 			})
 			.finally(() => {
-				setIsLoading(false)
-				form.resetFields()
-			})
-	}
+				setIsLoading(false);
+				form.resetFields();
+			});
+	};
 
 	return (
 		<div className=' flex flex-col md:flex-col lg:flex-row justify-center items-center lg:items-start gap-4 md:gap-8 border-t-2 border-gray-200 pt-10 mt-16 w-full mx-auto max-w-[1400px]  px-4 md:px-6 lg:px-8'>
@@ -124,6 +124,13 @@ const ContactForm = ({ place = 'home' }: Props) => {
 									target='_blank'
 									className='flex w-full  text-base gap-2 items-center hover:bg-cyan-100 hover:border-cyan-300 shadow px-3 py-2 rounded-lg border border-transparent '
 									href={c.href}
+									onClick={() =>
+										gaEvent({
+											action: 'contact_click',
+											category: c.type, // 'phone' | 'whatsapp' | 'email'
+											label: `${c.type}_from_contact_form`, // e.g. "whatsapp_from_footer"
+										})
+									}
 								>
 									<Image src={c.icon} alt='' width={24} height={24} />
 									<span className='font-semibold overflow-visible flex text-nowrap'>{c.title}:</span>
@@ -221,7 +228,7 @@ const ContactForm = ({ place = 'home' }: Props) => {
 			</div>
 			<ToastContainer transition={Bounce} autoClose={2000} closeOnClick />
 		</div>
-	)
-}
+	);
+};
 
-export default ContactForm
+export default ContactForm;

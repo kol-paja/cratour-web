@@ -1,8 +1,9 @@
-'use client'
+'use client';
 
-import { contactsList } from '@/constants/contacts'
-import Image from 'next/image'
-import Link from 'next/link'
+import { contactsList } from '@/constants/contacts';
+import { gaEvent } from '@/lib/gtag';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const ContactBanner = () => {
 	return (
@@ -20,6 +21,13 @@ const ContactBanner = () => {
 							href={contact.href}
 							target={contact.href.startsWith('http') ? '_blank' : '_self'}
 							className='group flex flex-col items-center justify-center bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition border border-gray-100 hover:-translate-y-1'
+							onClick={() =>
+								gaEvent({
+									action: 'contact_click',
+									category: contact.type, // 'phone' | 'whatsapp' | 'email'
+									label: `${contact.type}_from_contact_banner`, // e.g. "whatsapp_from_footer"
+								})
+							}
 						>
 							<div className='w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 mb-3 group-hover:scale-110 transition'>
 								<Image src={contact.icon} alt={contact.title} width={32} height={32} />
@@ -31,7 +39,7 @@ const ContactBanner = () => {
 				</div>
 			</div>
 		</section>
-	)
-}
+	);
+};
 
-export default ContactBanner
+export default ContactBanner;

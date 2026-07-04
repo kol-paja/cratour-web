@@ -1,13 +1,15 @@
-'use client'
+'use client';
 
-import React from 'react'
-import Services from '@/components/landing/Services'
-import Hero from '@/components/landing/Hero'
-import CitiesLayout from '@/components/landing/CitiesLayout'
-import TravelLayout from '@/components/landing/TravelLayout'
-import AboutUs from '@/components/landing/AboutUs'
-import CraftTours from '@/components/landing/CraftTours'
-import ContactForm from '@/components/form/ContactForm'
+import React from 'react';
+import Services from '@/components/landing/Services';
+import Hero from '@/components/landing/Hero';
+import CitiesLayout from '@/components/landing/CitiesLayout';
+import TravelLayout from '@/components/landing/TravelLayout';
+import AboutUs from '@/components/landing/AboutUs';
+import CraftTours from '@/components/landing/CraftTours';
+import ContactForm from '@/components/form/ContactForm';
+import AttractionsSection from '../sections/AttractionsSection';
+
 const Landing = () => {
 	return (
 		<>
@@ -22,6 +24,9 @@ const Landing = () => {
 			{/* City layout */}
 			<CitiesLayout />
 
+			{/* Attractions */}
+			<AttractionsSection />
+
 			{/* about us */}
 			<AboutUs />
 
@@ -31,7 +36,7 @@ const Landing = () => {
 
 			<ContactForm place='home' />
 		</>
-	)
-}
+	);
+};
 
-export default Landing
+export default Landing;

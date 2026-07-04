@@ -81,8 +81,8 @@ export const GET_TOUR = gql`
 					title
 				}
 				cities {
-					# lat
-					# lng
+					lat
+					lng
 					title
 					slug
 					desc
@@ -115,6 +115,7 @@ const TourDetailsPage = () => {
 
 	const { hashtags, cover, title, totalDays, subtitle, desc, age, attractions, content, customerPhotos, gallery, groupSize, highlights, isFeatured, routes } =
 		data.tourPackages[0];
+	console.log('🚀 ~ TourDetailsPage ~ routes:', routes);
 
 	return (
 		<div className='p-2 md:p-6 overflow-hidden max-w-6xl flex flex-col justify-center items-center  mx-auto pb-10 gap-5'>

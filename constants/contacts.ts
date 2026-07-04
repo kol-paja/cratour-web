@@ -25,6 +25,7 @@ export const contactsList = [
 		title: 'Call us!',
 		icon: '/png/call-us.png',
 		label: '+355 67 34 34 34 2',
+		type: 'phone',
 	},
 	{
 		telNr: '355673434342',
@@ -32,11 +33,13 @@ export const contactsList = [
 		title: 'Chat on whatsapp',
 		icon: '/png/whatsapp.png',
 		label: '+355673434342',
+		type: 'whatsapp',
 	},
 	{
 		href: 'mailto:cratour.al@gmail.com',
 		title: 'Email us',
 		icon: '/png/mail.png',
 		label: 'cratour.al@gmail.com',
+		type: 'email',
 	},
 ];

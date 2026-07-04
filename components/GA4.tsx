@@ -4,11 +4,7 @@
 import Script from 'next/script';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
-declare global {
-	interface Window {
-		dataLayer: any[];
-	}
-}
+
 export default function GoogleAnalytics() {
 	return (
 		<>

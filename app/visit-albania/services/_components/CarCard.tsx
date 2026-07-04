@@ -142,7 +142,7 @@ const CarCard = ({
 				</Button>
 			</div>
 
-			<Modal onClose={onClose} onCancel={onClose} width={700} open={open} centered>
+			<Modal onCancel={onClose} width={700} open={open} centered>
 				<div className='space-y-4'>
 					<h1 className='text-2xl font-bold'>{name}</h1>
 

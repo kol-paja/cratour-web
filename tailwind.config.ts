@@ -49,6 +49,12 @@ export default {
 					'5': 'hsl(var(--chart-5))',
 				},
 			},
+			maxWidth: {
+				'7xl': '80rem', // already default (1280px)
+				'8xl': '88rem', // ~1408px
+				'9xl': '96rem', // ~1536px
+				'10xl': '104rem', // ~1664px
+			},
 			keyframes: {
 				slideInLeft: {
 					from: {
@@ -94,5 +100,6 @@ export default {
 			},
 		},
 	},
+	// eslint-disable-next-line @typescript-eslint/no-require-imports
 	plugins: [require('tailwindcss-animate'), require('tailwind-clip-path')],
 } satisfies Config;
